@@ -52,7 +52,7 @@ OAI example
     42
     >>> record = oai.get(records.identifiers[0])
     >>> alto_record = record.alto
-    >>> alto_to_text(alto_records[0]).split("\\n")[1][:27]
+    >>> alto_to_text(alto_record[0]).split("\\n")[1][:27]
     u' RADIO 1 van 1 Ootober 1937'
     >> image_record = record.image
     >>> len(image_record)

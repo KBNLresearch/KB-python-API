@@ -1,7 +1,7 @@
-__version__ = '0.1.1'
+__version__ = '0.1.3'
 __all__ = ['oai']
 __author__ = 'WillemJan Faber <willemjan.faber@kb.nl'
 
-from kb.nl.api import oai
+from oai import oai
 
 oai = oai()
