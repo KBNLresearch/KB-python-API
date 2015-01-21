@@ -16,6 +16,7 @@ KB python API: Access to National Library of the Netherlands data
 =================================================================
 
 .. image:: https://travis-ci.org/KBNLresearch/KB-Python-API.svg?branch=master
+        :scale: 50 %
         :alt: build status
         :align: left
 
