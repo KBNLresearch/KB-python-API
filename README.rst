@@ -1,7 +1,9 @@
 .. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Logo_Koninklijke_Bibliotheek_wordmark.svg/200px-Logo_Koninklijke_Bibliotheek_wordmark.svg.png
         :alt: Koninklijke Bibliotheek Logo
         :align: right
-
+        :scale: 50 %
+        :width: 100 px
+ 
 
 .. _API: https://en.wikipedia.org/wiki/Application_programming_interface
 .. _DataServices: http://www.kb.nl/bronnen-zoekwijzers/dataservices-en-apis
@@ -16,9 +18,7 @@ KB python API: Access to National Library of the Netherlands data
 =================================================================
 
 .. image:: https://travis-ci.org/KBNLresearch/KB-Python-API.svg?branch=master
-        :scale: 50 %
-        :width: 100 px
-        :alt: build status
+       :alt: build status
         :align: left
 
 
