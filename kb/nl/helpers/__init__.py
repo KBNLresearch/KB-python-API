@@ -24,7 +24,7 @@ def alto_to_text(alto_data):
     ''' Grab the selected text blocks and write them to disk '''
     alto_data = etree.fromstring(alto_data.encode('utf-8'))
 
-    alto_text = unicode("")
+    alto_text = u""
     prev_was_hyp = False
 
     for item in alto_data.iter():
@@ -33,13 +33,13 @@ def alto_to_text(alto_data):
                 alto_text += item.get("CONTENT")
                 prev_was_hyp = False
             else:
-                alto_text += unicode(" ") + item.get("CONTENT")
+                alto_text += u" " + item.get("CONTENT")
 
         if item.tag.endswith("HYP"):
             prev_was_hyp = True
 
         if item.tag.endswith("TextBlock"):
             if len(alto_text) > 0:
-                alto_text += unicode("\n")
+                alto_text += u"\n"
 
     return alto_text
