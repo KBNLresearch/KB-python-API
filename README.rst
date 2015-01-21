@@ -1,8 +1,9 @@
-.. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Logo_Koninklijke_Bibliotheek_wordmark.svg/200px-Logo_Koninklijke_Bibliotheek_wordmark.svg.png
+.. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Logo_Koninklijke_Bibliotheek_wordmark.svg/120px-Logo_Koninklijke_Bibliotheek_wordmark.svg.png
         :alt: Koninklijke Bibliotheek Logo
         :align: right
         :scale: 50 %
         :width: 100 px
+        :height: 100 px
  
 
 .. _API: https://en.wikipedia.org/wiki/Application_programming_interface
@@ -12,11 +13,12 @@
 .. _OAI-MPH: http://www.openarchives.org/pmh/
 .. _Python: http://python.org/
 .. _SRU: http://www.loc.gov/standards/sru/
-.. _Travis: https://api.travis-ci.org/KBNLresearch/
+.. _Travis: https://travis-ci.org/KBNLresearch/KB-python-API
+.. _CC-BY-NC-ND: https://creativecommons.org/licenses/by-nc-nd/2.0/
 
-=================================================================
-KB python API: Access to National Library of the Netherlands data
-=================================================================
+=====================================================================
+KB python API: Access to National Library of the Netherlands datasets
+=====================================================================
 
 .. image:: https://api.travis-ci.org/KBNLresearch/KB-python-API.svg
         :alt: build status
@@ -24,12 +26,16 @@ KB python API: Access to National Library of the Netherlands data
 Travis_ build status
 
 
-KB-Python-API is a simple API_ for Python_, the API provides easy access to free and CC-BY-NC-ND datasets provided by the National Library of the Netherlands (KB_).
+KB-Python-API is a simple API_ for Python_, the API provides easy access to free and CC-BY-NC-ND_ datasets provided by the National Library of the Netherlands (KB_).
 
-It relies on the backend infrastructure of the KB_ which consists of an SRU_ and OAI-MPH_ service. The KB Python API makes it easy to interact with historical data,
+It relies on the back-end infrastructure of the KB_ which consists of an SRU_ and OAI-MPH_ service. The KB Python API makes it easy to interact with historical data,
 for more information on the provided datasets and data-rights take a look at the DataServices_ page of the KB.
 
-Currently only the OAI_ part is implemented.
+Currently only the OAI_ part is implemented. To do a quick install:
+
+.. code-block:: python
+pip install kb
+
 
 OAI example
 ===========
