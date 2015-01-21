@@ -1,0 +1,67 @@
+.. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Logo_Koninklijke_Bibliotheek_wordmark.svg/200px-Logo_Koninklijke_Bibliotheek_wordmark.svg.png
+        :alt: Koninklijke Bibliotheek Logo
+        :align: right
+
+
+.. _API: https://en.wikipedia.org/wiki/Application_programming_interface
+.. _DataServices: http://www.kb.nl/bronnen-zoekwijzers/dataservices-en-apis
+.. _Delpher: http://www.delpher.nl/
+.. _KB: http://www.kb.nl/en
+.. _OAI-MPH: http://www.openarchives.org/pmh/
+.. _Python: http://python.org/
+.. _SRU: http://www.loc.gov/standards/sru/
+
+=================================================================
+KB python API: Access to National Library of the Netherlands data
+=================================================================
+
+.. image:: https://travis-ci.org/KBNLresearch/KB-Python-API.svg?branch=master
+        :alt: build status
+        :align: left
+
+
+KB-Python-API is a simple API_ for Python_, the API provides easy access to free and CC-BY-NC-ND datasets provided by the National Library of the Netherlands (KB_).
+
+It relies on the backend infrastructure of the KB_ which consists of an SRU_ and OAI-MPH_ service. The KB Python API makes it easy to interact with historical data,
+for more information on the provided datasets and data-rights take a look at the DataServices_ page of the KB.
+
+Currently only the OAI_ part is implemented.
+
+OAI example
+===========
+.. code-block:: python
+
+    >>> from kb.nl.api import oai
+    >>> from kb.nl.helpers import alto_to_text
+    >>> oai.list_sets()
+    ['ANP', 'BYVANCK', 'DPO', 'SGD']
+    >>> records = oai.list_records("ANP")
+    >>> records.identifiers[:3]
+    ['anp:1937:10:01:1', 'anp:1937:10:01:2', 'anp:1937:10:01:3']
+    >>> len(oai.resumptiontoken)
+    42
+    >>> record = oai.get(records.identifiers[0])
+    >>> alto_record = record.alto
+    >>> alto_to_text(alto_records[0]).split("\\n")[1][:27]
+    u' RADIO 1 van 1 Ootober 1937'
+    >> image_record = record.image
+    >>> len(image_record)
+    721035
+
+SRU example
+===========
+(Not implemented yet)
+.. code-block:: python
+
+    >>> from kb.nl.api import sru
+    >>> sru.setname = "ANP"
+    >>> records = sru.query('beatrix')
+    >>> records.identifiers[:3]
+    ['anp:1937:10:01:1', 'anp:1937:10:01:2', 'anp:1937:10:01:3']
+    >>> record = records[0]
+    >>> alto_record = record.alto
+    >>> len(alto_record)
+    90124
+    >>> image_record = record.image
+    >>> len(image_record)
+    677018
