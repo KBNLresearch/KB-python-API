@@ -12,14 +12,16 @@
 .. _OAI-MPH: http://www.openarchives.org/pmh/
 .. _Python: http://python.org/
 .. _SRU: http://www.loc.gov/standards/sru/
+.. _Travis: https://api.travis-ci.org/KBNLresearch/
 
 =================================================================
 KB python API: Access to National Library of the Netherlands data
 =================================================================
 
-.. image:: https://travis-ci.org/KBNLresearch/KB-Python-API.svg?branch=master
-       :alt: build status
+.. image:: https://api.travis-ci.org/KBNLresearch/KB-python-API.svg
+        :alt: build status
         :align: left
+Travis_ build status
 
 
 KB-Python-API is a simple API_ for Python_, the API provides easy access to free and CC-BY-NC-ND datasets provided by the National Library of the Netherlands (KB_).
@@ -52,7 +54,8 @@ OAI example
 
 SRU example
 ===========
-(Not implemented yet)
+Not implemented yet.
+
 .. code-block:: python
 
     >>> from kb.nl.api import sru
