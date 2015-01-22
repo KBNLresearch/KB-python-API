@@ -3,13 +3,16 @@ all: 	install
 doc: 	
 	rst2html README.rst > README.html
 
-test: testOAI testALTOtoTXT
+test: testENV testOAI testALTOtoTXT
+
+testENV:
+	python setup.py install
 
 testOAI:
-	./test/oai_test.py
+	python ./test/oai_test.py
 
 testALTOtoTXT:
-	./test/alto_to_text_test.py
+	python ./test/alto_to_text_test.py
 
 clean:
 	rm -rf build
