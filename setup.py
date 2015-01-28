@@ -9,7 +9,7 @@ setup(
     version='0.1.3',
     packages=['kb.nl.api', 'kb.nl.helpers', 'kb', 'kb.nl', 'kb.nl.collections'],
     license='GNU General Public License',
-    install_requires=['lxml>=2.3', 'requests>=2.4'],
+    install_requires=['lxml>=2.3', 'requests'],
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',

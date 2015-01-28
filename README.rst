@@ -60,19 +60,19 @@ OAI example
 
 SRU example
 ===========
-Not implemented yet.
+Work in progress, API might change.
 
 .. code-block:: python
 
     >>> from kb.nl.api import sru
-    >>> sru.setname = "ANP"
-    >>> records = sru.query('beatrix')
-    >>> records.identifiers[:3]
-    ['anp:1937:10:01:1', 'anp:1937:10:01:2', 'anp:1937:10:01:3']
-    >>> record = records[0]
-    >>> alto_record = record.alto
-    >>> len(alto_record)
-    90124
-    >>> image_record = record.image
-    >>> len(image_record)
-    677018
+    >>> from kb.nl.helpers import alto_to_text
+    >>> response = sru.search("juliana", "ANP")
+    >>> response.nr_of_records
+    6445
+    >>> records = response.records
+    >>> [r.date for r in records][:3]
+    ['1948/08/28 00:00:00', '1950/09/16 00:00:00', '1949/09/23 00:00:00']
+    >>> records[1].title
+    'ANP Nieuwsbericht - 16-09-1950 - 42'
+    >>> records[1].abstract.strip()[:10]
+    u'Bik 16 Sep'

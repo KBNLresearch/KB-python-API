@@ -49,7 +49,7 @@ class oai():
            :param setname: OAI setname
         """
         if setname not in self.oai_sets:
-            raise 'Error unknown setname'
+            raise Exception('Error unknown setname')
 
         if not setname == self.current_set:
             self.current_set = setname
@@ -69,7 +69,7 @@ class oai():
         response = requests.get(url)
 
         if not response.status_code == 200:
-            raise ('Error while getting data from %s' % url)
+            raise Exception('Error while getting data from %s' % url)
 
         records_data = etree.fromstring(response.content)
 
@@ -113,7 +113,7 @@ class oai():
         response = requests.get(url)
 
         if not response.status_code == 200:
-            raise ('Error while getting data from %s' % url)
+            raise Exception('Error while getting data from %s' % url)
 
         response = record(etree.fromstring(response.content),
                           self.current_set, self.DEBUG)
@@ -238,7 +238,7 @@ class record():
             response = requests.get(alto_url)
 
             if not response.status_code == 200:
-                raise ('Error while getting data from %s' % alto_url)
+                raise Exception('Error while getting data from %s' % alto_url)
 
             return [response.text]
         else:
@@ -251,7 +251,7 @@ class record():
                     sys.stdout.write(alto_url + " ")
 
                 if not response.status_code == 200:
-                    raise ('Error while getting data from %s' % alto_url)
+                    raise Exception('Error while getting data from %s' % alto_url)
 
                 alto_list.append(response.text)
 
@@ -289,7 +289,7 @@ class record():
         response = requests.get(img_url)
 
         if not response.status_code == 200:
-            raise 'Error while getting data from %s' % img_url
+            raise Exception('Error while getting data from %s' % img_url)
 
         return response.content
 
