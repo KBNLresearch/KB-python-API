@@ -3,7 +3,7 @@ all: 	install
 doc: 	
 	rst2html README.rst > README.html
 
-test: testENV testOAI testSRU testALTOtoTXT
+test: install testENV testOAI testSRU testALTOtoTXT
 
 testENV:
 	python setup.py install
