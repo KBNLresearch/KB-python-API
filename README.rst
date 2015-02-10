@@ -34,12 +34,10 @@ for more information on the provided datasets and data-rights take a look at the
 
 For example usage have a look at the provided example.py file, or consult the /test directory.
 
-This package is also available from the pypi website.
-
+This package is also available from the pypi_ website.
 To do a quick install:
 
 .. code-block:: python
-
 pip install kb
 
 
