@@ -15,6 +15,7 @@
 .. _SRU: http://www.loc.gov/standards/sru/
 .. _Travis: https://travis-ci.org/KBNLresearch/KB-python-API
 .. _CC-BY-NC-ND: https://creativecommons.org/licenses/by-nc-nd/2.0/
+.. _pypi: https://pypi.python.org/pypi/kb/
 
 =====================================================================
 KB python API: Access to National Library of the Netherlands datasets
@@ -31,9 +32,14 @@ KB-Python-API is a simple API_ for Python_, the API provides easy access to free
 It relies on the back-end infrastructure of the KB_ which consists of an SRU_ and OAI-MPH_ service. The KB Python API makes it easy to interact with historical data,
 for more information on the provided datasets and data-rights take a look at the DataServices_ page of the KB.
 
-Currently only the OAI_ part is implemented. To do a quick install:
+For example usage have a look at the provided example.py file, or consult the /test directory.
+
+This package is also available from the pypi website.
+
+To do a quick install:
 
 .. code-block:: python
+
 pip install kb
 
 
@@ -60,19 +66,12 @@ OAI example
 
 SRU example
 ===========
-Work in progress, API might change.
-
 .. code-block:: python
 
     >>> from kb.nl.api import sru
     >>> from kb.nl.helpers import alto_to_text
-    >>> response = sru.search("juliana", "ANP")
-    >>> response.nr_of_records
-    6445
-    >>> records = response.records
-    >>> [r.date for r in records][:3]
-    ['1948/08/28 00:00:00', '1950/09/16 00:00:00', '1949/09/23 00:00:00']
-    >>> records[1].title
-    'ANP Nieuwsbericht - 16-09-1950 - 42'
-    >>> records[1].abstract.strip()[:10]
-    u'Bik 16 Sep'
+    >>> response = sru.search("Beatrix AND Juliana AND Bernhard AND telegram", "ANP")
+    >>> for record in response.records:
+    ...     print("Date: %s" % record.date)
+    ...     print("Abstract: %s" % record.abstract) 
+    ...     print("Title: %s" % record.title)

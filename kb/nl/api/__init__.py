@@ -1,4 +1,4 @@
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 
 __all__ = ['oai', 'sru']
 __author__ = 'WillemJan Faber <willemjan.faber@kb.nl'

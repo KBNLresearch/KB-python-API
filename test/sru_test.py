@@ -11,31 +11,18 @@ def oai_anp():
     """
     >>> from kb.nl.api import sru
     >>> from kb.nl.helpers import alto_to_text
-
     >>> sru.DEBUG=True
-    >>> response = sru.search("beatrix", "ANP")
-    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=50&operation=searchRetrieve&startRecord=1&recordSchema=dcx&x-collection=ANP&query=beatrix
-    >>> response.nr_of_records
-    5638
-    >>> response.nr_of_retrieved_records
-    50
-    >>> records = response.records
-    >>> [r.date for r in records][:3]
-    ['1980/05/21 00:00:00', '1962/11/09 00:00:00', '1977/03/17 00:00:00']
-    >>> response = sru.search("juliana", "ANP")
-    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=50&operation=searchRetrieve&startRecord=1&recordSchema=dcx&x-collection=ANP&query=juliana
-    >>> response.nr_of_records
-    6445
-    >>> records = response.records
-    >>> [r.date for r in records][:3]
-    ['1948/08/28 00:00:00', '1950/09/16 00:00:00', '1949/09/23 00:00:00']
-    >>> records[1].title
-    'ANP Nieuwsbericht - 16-09-1950 - 42'
-    >>> records[1].abstract.strip()[:10]
-    u'Bik 16 Sep'
-    >>> len(records)
-    50
-    >>> response = []
+    >>> response = sru.search("beatrix AND juliana AND Bernhard AND gelukwensen", "ANP")
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=1&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen
+    >>> for record in response.records:
+    ...     print(record.date)
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=1&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1967/04/28 00:00:00
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=2&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1968/09/25 00:00:00
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=3&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1966/02/21 00:00:00
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=4&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1966/03/10 00:00:00
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=5&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1966/03/09 00:00:00
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=6&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1969/10/11 00:00:00
+    http://jsru.kb.nl/sru/sru?version=1.2&maximumRecords=1&operation=searchRetrieve&startRecord=7&recordSchema=dcx&x-collection=ANP&query=beatrix+AND+juliana+AND+Bernhard+AND+gelukwensen1965/06/29 00:00:00
     """
 
 if __name__ == "__main__":

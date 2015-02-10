@@ -35,6 +35,10 @@ class oai():
     resumptiontoken = False
     DEBUG = False
 
+    def __init__(self, current_set = False):
+        if current_set:
+            self.current_set = current_set
+
     def list_sets(self):
         """
             Shows a list of pre-defined OAI-sets.
@@ -87,6 +91,7 @@ class oai():
             :param identifier: Identifier to get from OAI server
         """
         if self.current_set == "ANP":
+            identifier = identifier.replace(':mpeg21', '')
             identifier = identifier.split(':')[0] + ':' + identifier
             identifier += ':' + 'mpeg21'
         if self.current_set == 'SGD':

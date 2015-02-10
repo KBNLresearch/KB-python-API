@@ -1,5 +1,6 @@
 import sys
 import requests
+import urllib
 
 from kb.nl.collections import SETS
 from kb.nl.helpers import etree
@@ -13,51 +14,26 @@ SRU_BASEURL += '&x-collection=%s&query=%s'
 
 
 class response():
-    def __init__(self, records_data, nr_of_records):
-        self.records_data = records_data
-        self.nr_of_records = nr_of_records
+    def __init__(self, record_data, sru):
+        self.record_data = record_data
+        self.sru = sru
 
     @property
-    def identifiers(self):
-        ids = [i.text.split('=')[1] for i in self.records_data.iter() if
-               i.tag.endswith('identifier') and
-               i.text.find(':') > -1]
-        return ids
+    def identifier(self):
+        id = [i.text.split('=')[1] for i in self.record_data.iter() if
+              i.tag.endswith('identifier') and
+              i.text.find(':') > -1]
+        return id[0]
 
     @property
     def records(self):
-        ns = {'zs': 'http://www.loc.gov/zing/srw/'}
-        records_data = self.records_data.xpath("zs:records/zs:record",
-                                               namespaces=ns)
-        return(records(records_data))
-
-
-class records():
-    nr_of_records = 0
-
-    def __init__(self, record_data):
-        self.record_data = []
-        for item in record_data:
-            self.record_data.append(item)
-            self.nr_of_records += 1
-
-    def __iter__(self):
-        i = 0
-        while i < len(self.record_data):
-            self.current_record = self.record_data[i]
-            yield record(self.record_data[i])
-            i += 1
-
-    def __getitem__(self, i):
-        return record(self.record_data[i])
-
-    def __len__(self):
-        return self.nr_of_records
-
-
-class record():
-    def __init__(self, record_data):
-        self.record_data = record_data
+        if self.sru.nr_of_records == 0:
+            record_data = "<xml></xml>"
+        else:
+            ns = {'zs': 'http://www.loc.gov/zing/srw/'}
+            record_data = self.record_data.xpath("zs:records/zs:record",
+                                                 namespaces=ns)[0]
+        return(record(record_data, self.sru))
 
     @property
     def date(self):
@@ -75,8 +51,28 @@ class record():
                 r.tag.endswith('title')][0]
 
 
+class record():
+    def __init__(self, record_data, sru):
+        self.record_data = record_data
+        self.sru = sru
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.sru.nr_of_records == 0:
+            raise StopIteration
+        if self.sru.startrecord < self.sru.nr_of_records + 1:
+            record_data = self.sru.run_query()
+            self.sru.startrecord += 1
+            return response(record_data, self.sru)
+        else:
+            raise StopIteration
+
+
 class sru():
     DEBUG = False
+
     collection = False
     maximumrecords = 50
     nr_of_records = 0
@@ -85,28 +81,16 @@ class sru():
     sru_collections = SETS
     startrecord = 0
 
-    def __call__(self):
-        pass
-
-    def __iter__(self):
-        nr_of_records = self.nr_of_records - self.maximumrecords
-        while self.startrecord < nr_of_records:
-            self.startrecord += self.maximumrecords
-            yield self.search(self.query,
-                              self.collection,
-                              self.startrecord,
-                              self.maximumrecords,
-                              self.recordschema)
-
     def search(self, query, collection=False,
-               startrecord=1, maximumrecords=50, recordschema=False):
+               startrecord=1, maximumrecords=1, recordschema=False):
 
         self.maximumrecords = maximumrecords
-        self.query = query
+        self.query = urllib.quote_plus(query)
         self.startrecord = startrecord
 
         if collection not in self.sru_collections:
                 raise Exception('Unknown collection')
+
         self.collection = self.sru_collections[collection]['collection']
 
         if not self.collection:
@@ -117,8 +101,21 @@ class sru():
         else:
                 self.recordschema = recordschema
 
-        url = SRU_BASEURL % (maximumrecords, startrecord,
-                             self.recordschema, self.collection, query)
+        record_data = self.run_query()
+
+        nr_of_records = [i.text for i in record_data.iter() if
+                         i.tag.endswith('numberOfRecords')][0]
+
+        self.nr_of_records = int(nr_of_records)
+
+        if nr_of_records > 0:
+            return response(record_data, self)
+
+        return False
+
+    def run_query(self):
+        url = SRU_BASEURL % (self.maximumrecords, self.startrecord,
+                             self.recordschema, self.collection, self.query)
         if self.DEBUG:
                 sys.stdout.write(url)
 
@@ -127,13 +124,6 @@ class sru():
         if not r.status_code == 200:
             raise Exception('Error while getting data from %s' % url)
 
-        records_data = etree.fromstring(r.content)
+        record_data = etree.fromstring(r.content)
 
-        nr_of_records = [i.text for i in records_data.iter() if
-                         i.tag.endswith('numberOfRecords')][0]
-        nr_of_records = int(nr_of_records)
-
-        if nr_of_records > 0:
-            return response(records_data, nr_of_records)
-
-        return False
+        return record_data
