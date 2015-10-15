@@ -45,7 +45,7 @@ class oai():
         """
         return sorted(self.oai_sets.keys())
 
-    def list_records(self, setname):
+    def list_records(self, setname, resumptiontoken):
         """
            Retrieves a list of records from the OAI server,
            and returns the list of records as an xml object.
@@ -55,9 +55,13 @@ class oai():
         if setname not in self.oai_sets:
             raise Exception('Error unknown setname')
 
+        if resumptiontoken:
+            self.resumptiontoken = resumptiontoken
+
         if not setname == self.current_set:
             self.current_set = setname
-            self.resumptiontoken = False
+            if not resumptiontoken:
+                self.resumptiontoken = False
 
         url = OAI_BASEURL
         url += '?verb=ListRecords'
@@ -68,7 +72,7 @@ class oai():
             url += '&resumptionToken=' + self.resumptiontoken
 
         if self.DEBUG:
-            sys.stdout.write(url)
+            sys.stdout.write(url + '\n')
 
         response = requests.get(url)
 
@@ -113,7 +117,7 @@ class oai():
             url += '&metadataPrefix=didl'
 
         if self.DEBUG:
-            sys.stdout.write(url)
+            sys.stdout.write(url + '\n')
 
         response = requests.get(url)
 
