@@ -162,7 +162,7 @@ class records():
         deleted = []
         for item in self.records_data[2]:
             if item.tag.endswith('record'):
-                if item[0].tag.endswith('header'):
+                if item[0].tag.endswith('header') and item[0].attrib.get('status') == 'deleted':
                     deleted.append(item[0][0].text)
         return deleted
 
