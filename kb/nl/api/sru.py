@@ -50,6 +50,13 @@ class response():
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('title')][0]
 
+    # Following properties occur in GGC
+
+    @property
+    def annotation(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('annotation')][0]
+
 
 class record():
     def __init__(self, record_data, sru):
