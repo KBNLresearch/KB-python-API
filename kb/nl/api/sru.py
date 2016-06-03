@@ -19,7 +19,7 @@ class response():
         self.sru = sru
 
     @property
-    def identifier(self):
+    def identifiers(self):
         id = [i.text.split('=')[1] for i in self.record_data.iter() if
               i.tag.endswith('identifier') and
               i.text.find(':') > -1]
