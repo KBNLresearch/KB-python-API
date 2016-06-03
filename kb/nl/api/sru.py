@@ -36,24 +36,24 @@ class response():
         return(record(record_data, self.sru))
 
     @property
-    def date(self):
+    def dates(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('date')]
 
     @property
-    def abstract(self):
+    def abstracts(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('abstract')]
 
     @property
-    def title(self):
+    def titles(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('title')]
 
     # Following properties occur in GGC
 
     @property
-    def annotation(self):
+    def annotations(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('annotation')]
 
