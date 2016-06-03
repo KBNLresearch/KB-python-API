@@ -21,4 +21,11 @@ SETS = {'ANP': {'collection': 'ANP',
                 'description_nl': 'Staten-Generaal Digitaal',
                 'metadataPrefix': 'dcx',
                 'setname': 'sgd:register',
-                'time_period': [1962, 1994]}}
+                'time_period': [1962, 1994]},
+        'GGC': {'collection': 'GGC',
+                'description_en': 'General Catalogue KB',
+                'description_nl': 'Algemene Catalogus KB',
+                'metadataPrefix': 'dcx',
+                'recordschema': 'dcx',
+                'setname': 'ggc',
+                'time_period': [1937, 2016]}} # No idea what to use here?
