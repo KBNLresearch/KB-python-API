@@ -23,7 +23,7 @@ class response():
         id = [i.text.split('=')[1] for i in self.record_data.iter() if
               i.tag.endswith('identifier') and
               i.text.find(':') > -1]
-        return id[0]
+        return id
 
     @property
     def records(self):
@@ -38,24 +38,24 @@ class response():
     @property
     def date(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('date')][0]
+                r.tag.endswith('date')]
 
     @property
     def abstract(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('abstract')][0]
+                r.tag.endswith('abstract')]
 
     @property
     def title(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('title')][0]
+                r.tag.endswith('title')]
 
     # Following properties occur in GGC
 
     @property
     def annotation(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('annotation')][0]
+                r.tag.endswith('annotation')]
 
 
 class record():
