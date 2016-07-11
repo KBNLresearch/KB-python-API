@@ -17,7 +17,6 @@ class response():
     def __init__(self, record_data, sru):
         self.record_data = record_data
         self.sru = sru
-    
     """
     @property
     def identifiers(self):
@@ -37,47 +36,15 @@ class response():
                                                  namespaces=ns)[0]
         return(record(record_data, self.sru))
 
-    # TODO: distinguish by xsi:type 
     @property
     def identifiers(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('identifier')]
 
     @property
-    def types(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('type')]
-    
-    @property
-    def languages(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('language')]
-   
-    @property
     def dates(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('date')]
-
-    @property
-    def extents(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('extent')]
-
-    @property
-    def creators(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('creator')]
-
-    @property
-    def contributors(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('contributor')]
-
-    # TODO: distinguish by xsi:type and xml:lang
-    @property
-    def subjects(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('subject')]
 
     @property
     def abstracts(self):
@@ -88,11 +55,6 @@ class response():
     def titles(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('title')]
-
-    @property
-    def publishers(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('publisher')]
 
     # Following properties occur in GGC
 

@@ -1,0 +1,18 @@
+Metadata-Version: 1.1
+Name: kb
+Version: 0.1.6
+Summary: Access to National Library of the Netherlands datasets
+Home-page: https://github.com/KBNLresearch/KB-python-API
+Author: WillemJan Faber
+Author-email: ['WillemJan.faber@kb.nl', 'lab@kb.nl']
+License: GNU General Public License
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: Dutch
+Classifier: Topic :: Sociology :: History
