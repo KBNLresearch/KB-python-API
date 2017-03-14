@@ -17,13 +17,15 @@ class response():
     def __init__(self, record_data, sru):
         self.record_data = record_data
         self.sru = sru
-
+    
+    """
     @property
-    def identifier(self):
+    def identifiers(self):
         id = [i.text.split('=')[1] for i in self.record_data.iter() if
               i.tag.endswith('identifier') and
               i.text.find(':') > -1]
-        return id[0]
+        return id
+   """
 
     @property
     def records(self):
@@ -35,20 +37,69 @@ class response():
                                                  namespaces=ns)[0]
         return(record(record_data, self.sru))
 
+    # TODO: distinguish by xsi:type 
     @property
-    def date(self):
+    def identifiers(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('date')][0]
+                r.tag.endswith('identifier')]
 
     @property
-    def abstract(self):
+    def types(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('abstract')][0]
+                r.tag.endswith('type')]
+    
+    @property
+    def languages(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('language')]
+   
+    @property
+    def dates(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('date')]
 
     @property
-    def title(self):
+    def extents(self):
         return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('title')][0]
+                r.tag.endswith('extent')]
+
+    @property
+    def creators(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('creator')]
+
+    @property
+    def contributors(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('contributor')]
+
+    # TODO: distinguish by xsi:type and xml:lang
+    @property
+    def subjects(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('subject')]
+
+    @property
+    def abstracts(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('abstract')]
+
+    @property
+    def titles(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('title')]
+
+    @property
+    def publishers(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('publisher')]
+
+    # Following properties occur in GGC
+
+    @property
+    def annotations(self):
+        return [r.text for r in self.record_data.iter() if
+                r.tag.endswith('annotation')]
 
 
 class record():
