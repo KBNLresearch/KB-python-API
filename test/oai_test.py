@@ -11,8 +11,8 @@ def oai_anp():
     >>> from kb.nl.api import oai
     >>> from kb.nl.helpers import alto_to_text
     >>> oai.DEBUG=True
-    >>> oai.list_sets()
-    ['ANP', 'BYVANCK', 'DPO', 'SGD']
+    >>> sorted(oai.list_sets())
+    ['ANP', 'BYVANCK', 'DPO', 'GGC', 'SGD']
     >>> records = oai.list_records("ANP")
     http://services.kb.nl/mdo/oai?verb=ListRecords&metadataPrefix=didl&set=anp
     >>> records.identifiers[:3]
@@ -37,7 +37,6 @@ def oai_anp():
     '1937-10-01'
     """
 
-
 def oai_sgd():
     """
     >>> from kb.nl.api import oai
@@ -50,9 +49,9 @@ def oai_sgd():
     50
     >>> record = oai.get(records.identifiers[0])
     http://services.kb.nl/mdo/oai?verb=GetRecord&identifier=SGD:sgd:mpeg21:1967:0001424&metadataPrefix=didl
-    >>> alto_records = record.alto # SGD does not have real alto files..
-    http://resourcessgd.kb.nl/SGD/1967/FULLTEXT/SGD_1967_tekst_0003969.xml
-    >>> len(alto_records[0])
+    >>> ocr_data = record.ocr # SGD does not have real alto files..
+    http://resolver.kb.nl/resolve?urn=sgd:1967:0003969:ocr
+    >>> len(ocr_data)
     4777
     """
 
@@ -94,7 +93,7 @@ def oai_byvanck():
     >>> records = oai.list_records("BYVANCK")
     http://services.kb.nl/mdo/oai?verb=ListRecords&metadataPrefix=dcx&set=BYVANCK
     >>> records.deleted_identifiers[:2]
-    ['BYVANCK:BYVANCK:3477', 'BYVANCK:BYVANCK:5562']
+    ['BYVANCK:BYVANCK:5562', 'BYVANCK:BYVANCK:5567']
     >>> records.identifiers
     ['BYVANCK:3477']
     >>> record = oai.get(records.identifiers[0])

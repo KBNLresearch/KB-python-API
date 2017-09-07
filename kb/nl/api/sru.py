@@ -40,8 +40,9 @@ class response():
     # TODO: distinguish by xsi:type 
     @property
     def identifiers(self):
-        return [r.text for r in self.record_data.iter() if
-                r.tag.endswith('identifier')]
+        result = [r.text.replace('http://resolver.kb.nl/resolve?urn=', '') for r in self.record_data.iter() if
+                  r.tag.endswith('identifier') and r.text.find(':') > -1]
+        return result
 
     @property
     def types(self):

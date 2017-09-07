@@ -19,14 +19,17 @@ record_nr = 0
 for record in response.records:
     record_nr += 1
     print("********~ Record number %i ~*********" % record_nr)
-    print("Date: %s" % record.date)
-    print("RecordIdentifier: %s" % record.identifier)
-    print("Abstract: %s" % record.abstract)
-    print("Title: %s" % record.title)
+    print("Date: %s" % record.dates)
+    print("RecordIdentifier: %s" % record.identifiers)
+    print("Abstract: %s" % record.abstracts)
+    print("Title: %s" % record.titles)
 
-    record = oai_handler.get(record.identifier)
 
+    oai_handler.DEBUG = True
+    record = oai_handler.get(record.identifiers[0])
+    print(record.alto)
     for alto in record.alto:
-        print("Fulltext: %s" % alto_to_text(alto))
+        #print("Fulltext: %s" % alto_to_text(alto))
+        print(alto)
 
     print("*************************************\n\n")

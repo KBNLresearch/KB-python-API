@@ -45,7 +45,7 @@ class oai():
         """
         return sorted(self.oai_sets.keys())
 
-    def list_records(self, setname, resumptiontoken):
+    def list_records(self, setname, resumptiontoken=False):
         """
            Retrieves a list of records from the OAI server,
            and returns the list of records as an xml object.
@@ -176,6 +176,8 @@ class record():
         A record has a bunch of properties, most of them
         are exposed, for example:
 
+        >>> record.ocr # Returns the ocr for a record.
+
         >>> record.alto # Returns the alto files for a record.
 
         >>> record.image # Returns the image for a record.
@@ -238,7 +240,10 @@ class record():
         # The result is either one ALTO file,
         # or a bunch of them, if more then one,
         # fetch the results and return a list.
-        if len(alto_url_list) <= 1:
+        if len(alto_url_list) == 0:
+            return False
+
+        elif len(alto_url_list) <= 1:
             alto_url = alto_url_list[0]
 
             if self.DEBUG:
@@ -265,6 +270,30 @@ class record():
                 alto_list.append(response.text)
 
             return alto_list
+
+    @property
+    def ocr(self):
+        """
+            Return the OCR for the current record.
+
+            The OCR was produced with Abby-Finereader.
+        """
+        for item in self.record_data.iter():
+            if item.attrib and \
+               item.attrib.get('ref') and \
+               item.attrib['ref'].lower().endswith(':ocr'):
+
+		url = item.attrib['ref']
+
+		if self.DEBUG:
+			sys.stdout.write(url)
+
+		response = requests.get(url)
+		if not response.status_code == 200:
+			return False
+		return response.text
+	return False
+
 
     @property
     def image(self):
