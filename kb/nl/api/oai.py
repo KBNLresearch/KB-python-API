@@ -8,6 +8,7 @@ OAI_BASEURL = 'http://services.kb.nl/mdo/oai'
 
 
 class oai():
+
     """
         OAI interface to the National Library of the Netherlands.
         For more information on the OAI protocol, visit:
@@ -35,7 +36,7 @@ class oai():
     resumptiontoken = False
     DEBUG = False
 
-    def __init__(self, current_set = False):
+    def __init__(self, current_set=False):
         if current_set:
             self.current_set = current_set
 
@@ -130,6 +131,7 @@ class oai():
 
 
 class records():
+
     """
         Class for parsing xml output from OAI server,
         to usable objects.
@@ -162,12 +164,14 @@ class records():
         deleted = []
         for item in self.records_data[2]:
             if item.tag.endswith('record'):
-                if item[0].tag.endswith('header') and item[0].attrib.get('status') == 'deleted':
+                if item[0].tag.endswith('header') and \
+                   item[0].attrib.get('status') == 'deleted':
                     deleted.append(item[0][0].text)
         return deleted
 
 
 class record():
+
     """
         Class for parsing XML output from OAI server,
         to more human readable form. This class
@@ -265,7 +269,8 @@ class record():
                     sys.stdout.write(alto_url + " ")
 
                 if not response.status_code == 200:
-                    raise Exception('Error while getting data from %s' % alto_url)
+                    raise Exception(
+                        'Error while getting data from %s' % alto_url)
 
                 alto_list.append(response.text)
 
@@ -282,18 +287,15 @@ class record():
             if item.attrib and \
                item.attrib.get('ref') and \
                item.attrib['ref'].lower().endswith(':ocr'):
+                url = item.attrib['ref']
+                if self.DEBUG:
+                    sys.stdout.write(url)
 
-		url = item.attrib['ref']
-
-		if self.DEBUG:
-			sys.stdout.write(url)
-
-		response = requests.get(url)
-		if not response.status_code == 200:
-			return False
-		return response.text
-	return False
-
+                response = requests.get(url)
+                if not response.status_code == 200:
+                    return False
+                return response.text
+        return False
 
     @property
     def image(self):

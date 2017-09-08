@@ -2,6 +2,11 @@ import sys
 import requests
 import urllib
 
+try:
+    from urllib import quote  # Python 2.X
+except ImportError:
+    from urllib.parse import quote  # Python 3+
+
 from kb.nl.collections import SETS
 from kb.nl.helpers import etree
 
@@ -17,15 +22,6 @@ class response():
     def __init__(self, record_data, sru):
         self.record_data = record_data
         self.sru = sru
-    
-    """
-    @property
-    def identifiers(self):
-        id = [i.text.split('=')[1] for i in self.record_data.iter() if
-              i.tag.endswith('identifier') and
-              i.text.find(':') > -1]
-        return id
-   """
 
     @property
     def records(self):
@@ -37,10 +33,11 @@ class response():
                                                  namespaces=ns)[0]
         return(record(record_data, self.sru))
 
-    # TODO: distinguish by xsi:type 
+    # TODO: distinguish by xsi:type
     @property
     def identifiers(self):
-        result = [r.text.replace('http://resolver.kb.nl/resolve?urn=', '') for r in self.record_data.iter() if
+        baseurl = 'http://resolver.kb.nl/resolve?urn='
+        result = [r.text.replace(baseurl, '') for r in self.record_data.iter() if
                   r.tag.endswith('identifier') and r.text.find(':') > -1]
         return result
 
@@ -48,12 +45,12 @@ class response():
     def types(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('type')]
-    
+
     @property
     def languages(self):
         return [r.text for r in self.record_data.iter() if
                 r.tag.endswith('language')]
-   
+
     @property
     def dates(self):
         return [r.text for r in self.record_data.iter() if
@@ -137,7 +134,7 @@ class sru():
                startrecord=1, maximumrecords=1, recordschema=False):
 
         self.maximumrecords = maximumrecords
-        self.query = urllib.quote_plus(query)
+        self.query = quote(query)
         self.startrecord = startrecord
 
         if collection not in self.sru_collections:
@@ -160,7 +157,7 @@ class sru():
 
         self.nr_of_records = int(nr_of_records)
 
-        if nr_of_records > 0:
+        if self.nr_of_records > 0:
             return response(record_data, self)
 
         return False
