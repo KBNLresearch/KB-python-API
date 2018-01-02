@@ -11,8 +11,8 @@ from kb.nl.helpers import alto_to_text
 oai_handler = oai
 oai_handler.current_set = "ANP"
 
-response = sru.search("beatrix AND juliana AND Bernhard AND telegram", "ANP")
-print "Number of records: %i" % response.sru.nr_of_records
+response = sru.search("karel AND reve AND hooftprijs", "ANP")
+print ("Number of records: %i" % response.sru.nr_of_records)
 
 record_nr = 0
 
@@ -26,10 +26,9 @@ for record in response.records:
 
 
     oai_handler.DEBUG = True
-    record = oai_handler.get(record.identifiers[0])
-    print(record.alto)
-    for alto in record.alto:
-        #print("Fulltext: %s" % alto_to_text(alto))
-        print(alto)
+    r = oai_handler.get(record.identifiers[0])
+    for alto in r.alto:
+        print("Fulltext: %s" % alto_to_text(alto))
+        #print(alto)
 
     print("*************************************\n\n")

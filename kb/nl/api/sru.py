@@ -1,6 +1,7 @@
 import sys
 import requests
 import urllib
+import pprint 
 
 try:
     from urllib import quote  # Python 2.X
@@ -108,7 +109,7 @@ class record():
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         if self.sru.nr_of_records == 0:
             raise StopIteration
         if self.sru.startrecord < self.sru.nr_of_records + 1:
@@ -117,6 +118,9 @@ class record():
             return response(record_data, self.sru)
         else:
             raise StopIteration
+    
+    def next(self):
+        return self.__next__()
 
 
 class sru():
