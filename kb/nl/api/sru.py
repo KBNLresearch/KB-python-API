@@ -1,7 +1,7 @@
 import sys
 import requests
 import urllib
-import pprint 
+import pprint
 
 try:
     from urllib import quote  # Python 2.X
@@ -118,7 +118,7 @@ class record():
             return response(record_data, self.sru)
         else:
             raise StopIteration
-    
+
     def next(self):
         return self.__next__()
 

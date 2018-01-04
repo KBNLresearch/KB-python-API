@@ -7,7 +7,7 @@ from kb.nl.helpers import etree
 OAI_BASEURL = 'http://services.kb.nl/mdo/oai'
 
 
-class oai():
+class oai:
 
     """
         OAI interface to the National Library of the Netherlands.
