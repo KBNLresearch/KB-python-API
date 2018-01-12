@@ -1,6 +1,7 @@
 import sys
 import requests
 import urllib
+import pprint
 
 try:
     from urllib import quote  # Python 2.X
@@ -10,7 +11,7 @@ except ImportError:
 from kb.nl.collections import SETS
 from kb.nl.helpers import etree
 
-SRU_BASEURL = 'http://jsru.kb.nl/sru/sru'
+SRU_BASEURL = 'https://jsru.kb.nl/sru/sru'
 SRU_BASEURL += '?version=1.2&maximumRecords=%i'
 SRU_BASEURL += '&operation=searchRetrieve'
 SRU_BASEURL += '&startRecord=%i'
@@ -36,7 +37,7 @@ class response():
     # TODO: distinguish by xsi:type
     @property
     def identifiers(self):
-        baseurl = 'http://resolver.kb.nl/resolve?urn='
+        baseurl = 'https://resolver.kb.nl/resolve?urn='
         result = [r.text.replace(baseurl, '') for r in self.record_data.iter() if
                   r.tag.endswith('identifier') and r.text.find(':') > -1]
         return result
@@ -108,7 +109,7 @@ class record():
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         if self.sru.nr_of_records == 0:
             raise StopIteration
         if self.sru.startrecord < self.sru.nr_of_records + 1:
@@ -118,9 +119,12 @@ class record():
         else:
             raise StopIteration
 
+    def next(self):
+        return self.__next__()
+
 
 class sru():
-    DEBUG = False
+    DEBUG = True
 
     collection = False
     maximumrecords = 50
@@ -166,7 +170,7 @@ class sru():
         url = SRU_BASEURL % (self.maximumrecords, self.startrecord,
                              self.recordschema, self.collection, self.query)
         if self.DEBUG:
-                sys.stdout.write(url)
+            print("run_query: %s" % url)
 
         r = requests.get(url)
 

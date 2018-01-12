@@ -18,11 +18,19 @@ except ImportError:
                     import elementtree.ElementTree as etree
                 except ImportError:
                     raise("Failed to import ElementTree from any known place")
-
+import codecs
 
 def alto_to_text(alto_data):
     ''' Grab the selected text blocks and write them to disk '''
-    alto_data = etree.fromstring(alto_data.encode('utf-8'))
+    try:
+        # some files have a BOM available which does not get stripped on windows
+        if not alto_data[0] == '<':
+            alto_data = alto_data[3:]
+        alto_data = etree.fromstring(alto_data.encode('utf-8'))
+
+    except etree.XMLSyntaxError as e:
+        print ("error! %s" % alto_str[:40])
+        return None
 
     alto_text = u""
     prev_was_hyp = False
