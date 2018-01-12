@@ -9,10 +9,10 @@ testENV:
 	python setup.py install
 
 testOAI:
-	python ./test/oai_test.py
+	python2.7 ./test/oai_test.py
 
 testSRU:
-	python ./test/sru_test.py
+	python2.7 ./test/sru_test.py
 
 testALTOtoTXT:
 	python ./test/alto_to_text_test.py
