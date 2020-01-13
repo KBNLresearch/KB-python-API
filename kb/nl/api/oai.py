@@ -95,6 +95,8 @@ class oai:
 
             :param identifier: Identifier to get from OAI server
         """
+        identifier = identifier.replace('http://resolver.kb.nl/resolve?urn=', '')
+
         if self.current_set == "ANP":
             identifier = identifier.replace(':mpeg21', '')
             identifier = identifier.split(':')[0] + ':' + identifier

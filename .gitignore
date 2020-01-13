@@ -1,3 +1,4 @@
 *.pyc
+kb.egg-info
 __pycache__
 build

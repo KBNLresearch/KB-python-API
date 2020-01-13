@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -26,7 +26,7 @@ def oai_anp():
     >>> len(alto_records[0])
     90124
     >>> alto_to_text(alto_records[0]).split("\\n")[1][:27]
-    u' RADIO 1 van 1 Ootober 1937'
+    ' RADIO 1 van 1 Ootober 1937'
     >>> image_record = record.image
     http://resolver.kb.nl/resolve?urn=anp:1937:10:01:1:mpeg21:image
     >>> len(image_record)
@@ -70,15 +70,15 @@ def oai_dpo():
     >>> records = oai.list_records("DPO") # doctest: +ELLIPSIS
     http://services.kb.nl/mdo/oai?verb=ListRecords&metadataPrefix=didl&set=DPO&resumptionToken...
     >>> records.identifiers[:3]
-    ['dpo:10007:mpeg21', 'dpo:10008:mpeg21', 'dpo:10009:mpeg21']
+    ['dpo:10012:mpeg21', 'dpo:10014:mpeg21', 'dpo:10015:mpeg21']
     >>> record = oai.get(records.identifiers[0])
-    http://services.kb.nl/mdo/oai?verb=GetRecord&identifier=DPO:dpo:10007:mpeg21&metadataPrefix=didl
+    http://services.kb.nl/mdo/oai?verb=GetRecord&identifier=DPO:dpo:10012:mpeg21&metadataPrefix=didl
     >>> alto_records = record.alto # doctest: +ELLIPSIS
-    http://resolver.kb.nl/resolve?urn=dpo:10007:mpeg21:0001:alto http://...
+    http://resolver.kb.nl/resolve?urn=dpo:10012:mpeg21:0001:alto http://...
     >>> len(alto_records[0])
-    21634
+    1739
     >>> record.title[:20]
-    'Aanmerkingen, wegens'
+    'De minagting der her'
     >>> record.contributor
     False
     >>> record.publisher
@@ -103,7 +103,7 @@ def oai_byvanck():
     >>> image = record.image
     http://imageviewer.kb.nl/ImagingService/imagingService?id=BYVANCKB:mimi_78d38:dl1_183r_min
     >>> len(image)
-    109258
+    109800
     """
 
 if __name__ == "__main__":

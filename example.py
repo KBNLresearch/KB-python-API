@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -23,12 +23,7 @@ for record in response.records:
     print("RecordIdentifier: %s" % record.identifiers)
     print("Abstract: %s" % record.abstracts)
     print("Title: %s" % record.titles)
-
-
     oai_handler.DEBUG = True
     r = oai_handler.get(record.identifiers[0])
     for alto in r.alto:
         print("Fulltext: %s" % alto_to_text(alto))
-        #print(alto)
-
-    print("*************************************\n\n")

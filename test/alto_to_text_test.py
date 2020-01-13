@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -19,7 +19,7 @@ def alto_to_text_test():
     >>> data = fh.read()
     >>> fh.close()
     >>> alto_to_text(data).split('\\n')[2][:45]
-    u' De Rijksradiocontroledienst heeft te UTRECHT'
+    ' De Rijksradiocontroledienst heeft te UTRECHT'
     """
 
 if __name__ == "__main__":
