@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import os
 import sys
@@ -10,6 +9,7 @@ from kb.nl.helpers import alto_to_text
 
 oai_handler = oai
 oai_handler.current_set = "ANP"
+oai_handler.set_key("")
 
 response = sru.search("karel AND reve AND hooftprijs", "ANP")
 print ("Number of records: %i" % response.sru.nr_of_records)

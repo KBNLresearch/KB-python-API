@@ -4,7 +4,6 @@ import requests
 from kb.nl.collections import SETS
 from kb.nl.helpers import etree
 
-OAI_BASEURL = 'http://services.kb.nl/mdo/oai'
 
 
 class oai:
@@ -34,7 +33,10 @@ class oai:
     current_set = False
     oai_sets = SETS
     resumptiontoken = False
+
     DEBUG = False
+    KEY = False
+    OAI_BASEURL = 'http://services.kb.nl/mdo/oai'
 
     def __init__(self, current_set=False):
         if current_set:
@@ -45,6 +47,21 @@ class oai:
             Shows a list of pre-defined OAI-sets.
         """
         return sorted(self.oai_sets.keys())
+
+    def set_key(self, key):
+        """
+           Sets the key for the OAI-session,
+           some parts of the collection are protected.
+           to request a key see this page:
+
+           https://www.kb.nl/en/resources-research-guides/data-services-apis
+
+           :param key: OAI key 
+        """ 
+        if not self.KEY:
+            self.KEY = key
+            self.OAI_BASEURL += "/" + key
+        return
 
     def list_records(self, setname, resumptiontoken=False):
         """
@@ -64,7 +81,7 @@ class oai:
             if not resumptiontoken:
                 self.resumptiontoken = False
 
-        url = OAI_BASEURL
+        url = self.OAI_BASEURL
         url += '?verb=ListRecords'
         url += '&metadataPrefix=' + self.oai_sets[setname]['metadataPrefix']
         url += '&set=' + self.oai_sets[setname]['setname']
@@ -110,7 +127,7 @@ class oai:
             identifier = 'BYVANCK:' + identifier
             identifier = identifier.replace('BYVANCK', 'ByvanckB')
 
-        url = OAI_BASEURL
+        url = self.OAI_BASEURL
         url += '?verb=GetRecord'
         url += '&identifier=' + identifier
 
