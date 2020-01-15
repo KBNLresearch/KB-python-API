@@ -26,7 +26,8 @@ KB python API: Access to National Library of the Netherlands datasets
         :align: left
 Travis_ build status
 
-[![Downloads](https://pepy.tech/badge/kb)](https://pepy.tech/project/kb)
+.. image::https://pepy.tech/badge/kb/
+https://pepy.tech/project/kb
 
 KB-Python-API is a simple API_ for Python_, the API provides easy access to free and CC-BY-NC-ND_ datasets provided by the National Library of the Netherlands (KB_).
 
