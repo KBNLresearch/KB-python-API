@@ -21,6 +21,13 @@
 KB python API: Access to National Library of the Netherlands datasets
 =====================================================================
 
+
+
+.. image:: https://img.shields.io/pypi/v/kb?logo=kb
+        :alt: Pypi version
+        :align: left
+Pypi_ version
+
 .. image:: https://api.travis-ci.org/KBNLresearch/KB-python-API.svg
         :alt: build status
         :align: left
