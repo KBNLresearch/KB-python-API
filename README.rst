@@ -16,13 +16,14 @@
 .. _Travis: https://travis-ci.org/KBNLresearch/KB-python-API
 .. _CC-BY-NC-ND: https://creativecommons.org/licenses/by-nc-nd/2.0/
 .. _Pypi: https://pypi.python.org/pypi/kb/
+.. _Downloads: https://pepy.tech/project/kb
 
 =====================================================================
 KB python API: Access to National Library of the Netherlands datasets
 =====================================================================
-
-
-
+.. image:: https://pepy.tech/badge/kb
+        :alt: Downloads
+        :align: left
 .. image:: https://img.shields.io/pypi/v/kb?logo=kb
         :alt: Pypi version
         :align: left
